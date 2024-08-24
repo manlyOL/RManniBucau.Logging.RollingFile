@@ -26,7 +26,7 @@ Name | Summary | Default
 | :----- | :----: | -----:
 Archive | Are older than last files archives in gzip format. | `True`
 BufferSize | How many chars to keep in memory before forcing a flush.             This is indicative, the first time a message is read and lead to a buffer over this value will trigger a flush. | `8192`
-Directory | Directory to store logs and archives in. | `.`
+Directory | Directory to store logs and archives in. Note that directory MUST exist. | `.`
 Filename | log (archive without extension) filename pattern, it can use {date} and {counter} templates. | `log-{date}-{counter}.log`
 ForcedFlushTimeoutMillis | How long to await before forcing a flush if no message comes in. | `30000`
 MaxDays | How many archive days to keep is enabled. | `7`

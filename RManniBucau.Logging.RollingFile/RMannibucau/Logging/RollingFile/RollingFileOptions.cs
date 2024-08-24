@@ -6,7 +6,7 @@ namespace RManniBucau.Logging.RollingFile;
 public class RollingFileOptions
 {
     /// <summary>
-    /// Directory to store logs and archives in.
+    /// Directory to store logs and archives in. Note that directory MUST exist.
     /// </summary>
     public string Directory { get; set; } = ".";
 
