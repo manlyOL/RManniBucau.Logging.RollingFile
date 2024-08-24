@@ -1,0 +1,33 @@
+<Project>
+
+    <PropertyGroup>
+        <VersionPrefix>0.0.1</VersionPrefix>
+        <Authors>rmannibucau</Authors>
+        <Company>rmannibucau</Company>
+
+        <PackageTags>Logging, Rolling File, File</PackageTags>
+
+        <Deterministic>true</Deterministic>
+        <IncludeSymbols>true</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+
+        <TargetFramework>net8.0</TargetFramework>
+        <LangVersion>12</LangVersion>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+
+        <InvariantGlobalization>true</InvariantGlobalization>
+
+        <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+
+        <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+        <EmitCompilerGeneratedFiles>false</EmitCompilerGeneratedFiles>
+        <CompilerGeneratedFilesOutputPath>$(BaseIntermediateOutputPath)/Generated</CompilerGeneratedFilesOutputPath>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+        <WarningsAsErrors />
+    </PropertyGroup>
+</Project>
+  

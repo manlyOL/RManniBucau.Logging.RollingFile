@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference
+      Include="..\RManniBucau.Logging.RollingFile\RManniBucau.Logging.RollingFile.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <!--
+  ensure that dotnet build runs the update of readme (it is becomes bothering it is after the
+  core module we can do a fake nuget module but useless for now)
+  -->
+  <Target Name="RunAfterBuild" AfterTargets="Build">
+    <Exec Command="dotnet $(TargetPath)" />
+  </Target>
+</Project>
