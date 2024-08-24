@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 namespace RManniBucau.Logging.RollingFile;
 
 internal class RollingFileLogger(
+    string category,
     MessageQueue queue,
     IExternalScopeProvider? scopeProvider
 ) : ILogger
@@ -26,7 +27,7 @@ internal class RollingFileLogger(
     {
         if (IsEnabled(logLevel))
         {
-            queue.EnqueueMessage(formatter(state, exception));
+            queue.EnqueueMessage(category, formatter(state, exception));
         }
     }
 }

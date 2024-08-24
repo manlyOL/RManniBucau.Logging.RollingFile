@@ -32,7 +32,7 @@ public class RollingFileProvider : ILoggerProvider, ISupportExternalScope
     /// <inheritdoc/>
     public ILogger CreateLogger(string name)
     {
-        return _loggers.GetOrAdd(name, new RollingFileLogger(_queue, _scopeProvider));
+        return _loggers.GetOrAdd(name, new RollingFileLogger(name, _queue, _scopeProvider));
     }
 
     /// <inheritdoc/>

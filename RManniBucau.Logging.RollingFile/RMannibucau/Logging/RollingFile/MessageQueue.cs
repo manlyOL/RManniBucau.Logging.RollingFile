@@ -5,6 +5,8 @@ using System.Text.RegularExpressions;
 
 namespace RManniBucau.Logging.RollingFile;
 
+internal record LogMessage(DateTime Date, string Category, string Message);
+
 internal class MessageQueue : IDisposable
 {
     private readonly ConcurrentQueue<string> _messageQueue = new();
@@ -62,13 +64,20 @@ internal class MessageQueue : IDisposable
         return _writer;
     }
 
-    public virtual void EnqueueMessage(string message)
+    public virtual void EnqueueMessage(string category, string message)
     {
-        _messageQueue.Enqueue(message);
+        var msg = new LogMessage(_options.TimeProvider(), category, message);
+        // todo: enable to plug custom formatters?
+        _messageQueue.Enqueue(Format(msg));
         lock (_messageQueue)
         {
             Monitor.PulseAll(_messageQueue);
         }
+    }
+
+    private string Format(LogMessage message)
+    {
+        return $"[{message.Date:o}][{message.Category}] {message.Message}";
     }
 
     private void ProcessLogQueue()
