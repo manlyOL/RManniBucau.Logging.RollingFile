@@ -135,7 +135,7 @@ internal class MessageQueue : IDisposable
             {
                 lock (_messageQueue)
                 {
-                    Monitor.Wait(_messageQueue);
+                    Monitor.Wait(_messageQueue, _options.ForcedFlushTimeoutMillis);
                 }
             }
         }
