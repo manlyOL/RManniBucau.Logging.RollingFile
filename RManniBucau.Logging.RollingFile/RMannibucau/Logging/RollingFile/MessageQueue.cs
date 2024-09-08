@@ -2,10 +2,11 @@ using System.Collections.Concurrent;
 using System.IO.Compression;
 using System.Text;
 using System.Text.RegularExpressions;
+using Microsoft.Extensions.Logging;
 
 namespace RManniBucau.Logging.RollingFile;
 
-internal record LogMessage(DateTime Date, string Category, string Message);
+internal record LogMessage(DateTime Date, LogLevel Level, string Category, string Message);
 
 internal class MessageQueue : IDisposable
 {
@@ -64,9 +65,9 @@ internal class MessageQueue : IDisposable
         return _writer;
     }
 
-    public virtual void EnqueueMessage(string category, string message)
+    public virtual void EnqueueMessage(LogLevel level, string category, string message)
     {
-        var msg = new LogMessage(_options.TimeProvider(), category, message);
+        var msg = new LogMessage(_options.TimeProvider(), level, category, message);
         // todo: enable to plug custom formatters?
         _messageQueue.Enqueue(Format(msg));
         lock (_messageQueue)
@@ -77,7 +78,7 @@ internal class MessageQueue : IDisposable
 
     private string Format(LogMessage message)
     {
-        return $"[{message.Date:o}][{message.Category}] {message.Message}";
+        return $"[{message.Date:o}][{message.Level}][{message.Category}] {message.Message}";
     }
 
     private void ProcessLogQueue()

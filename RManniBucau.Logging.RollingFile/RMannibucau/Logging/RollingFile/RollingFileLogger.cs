@@ -27,7 +27,7 @@ internal class RollingFileLogger(
     {
         if (IsEnabled(logLevel))
         {
-            queue.EnqueueMessage(category, formatter(state, exception));
+            queue.EnqueueMessage(logLevel, category, formatter(state, exception));
         }
     }
 }

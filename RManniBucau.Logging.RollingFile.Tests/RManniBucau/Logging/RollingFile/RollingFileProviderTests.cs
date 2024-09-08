@@ -27,8 +27,8 @@ public class RollingFileProviderTests
         Assert.Equivalent(new List<string> { Path.Combine(ctx.Dir, "log-20240714-0.log") }, files);
         Assert.Equal(
             [
-                "[2024-07-14T08:00:00.0000000][rmannibucau.LogToFile.1] this is great",
-                "[2024-07-14T08:00:00.0000000][rmannibucau.LogToFile.2] this too"
+                "[2024-07-14T08:00:00.0000000][Information][rmannibucau.LogToFile.1] this is great",
+                "[2024-07-14T08:00:00.0000000][Information][rmannibucau.LogToFile.2] this too"
             ],
             File.ReadAllLines(Path.Combine(ctx.Dir, "log-20240714-0.log"))
         );
@@ -64,10 +64,10 @@ public class RollingFileProviderTests
         var files = Directory.EnumerateFiles(ctx.Dir).Select(Path.GetFileName).ToList();
         Assert.Equivalent(new List<string> { "log-20240714-0.log", "log-20240715-0.log" }, files);
         Assert.Equal(
-            ["[2024-07-14T08:00:00.0000000][rmannibucau.Rotate.1] this is great"],
+            ["[2024-07-14T08:00:00.0000000][Information][rmannibucau.Rotate.1] this is great"],
             File.ReadAllLines(Path.Combine(ctx.Dir, "log-20240714-0.log"))
         );
-        Assert.Equal(["[2024-07-15T08:00:00.0000000][rmannibucau.Rotate.2] this too"], File.ReadAllLines(Path.Combine(ctx.Dir, "log-20240715-0.log")));
+        Assert.Equal(["[2024-07-15T08:00:00.0000000][Information][rmannibucau.Rotate.2] this too"], File.ReadAllLines(Path.Combine(ctx.Dir, "log-20240715-0.log")));
     }
 
     [Fact]
@@ -102,7 +102,7 @@ public class RollingFileProviderTests
             new List<string> { "log-20240714-0.log.gz", "log-20240715-0.log" },
             files
         );
-        Assert.Equal(["[2024-07-15T08:00:00.0000000][rmannibucau.Archive.2] this too"], File.ReadAllLines(Path.Combine(ctx.Dir, "log-20240715-0.log")));
+        Assert.Equal(["[2024-07-15T08:00:00.0000000][Information][rmannibucau.Archive.2] this too"], File.ReadAllLines(Path.Combine(ctx.Dir, "log-20240715-0.log")));
 
         using var input = new StreamReader(
             new GZipStream(
@@ -112,7 +112,7 @@ public class RollingFileProviderTests
             Encoding.UTF8
         );
         var content = input.ReadToEnd();
-        Assert.Equal("[2024-07-14T08:00:00.0000000][rmannibucau.Archive.1] this is great\n", content);
+        Assert.Equal("[2024-07-14T08:00:00.0000000][Information][rmannibucau.Archive.1] this is great\n", content);
     }
 
     [Fact]
@@ -144,7 +144,7 @@ public class RollingFileProviderTests
 
         var files = Directory.EnumerateFiles(ctx.Dir).Select(Path.GetFileName).ToList();
         Assert.Equivalent(new List<string> { "log-20240722-0.log" }, files);
-        Assert.Equal(["[2024-07-22T08:00:00.0000000][rmannibucau.Delete.2] this too"], File.ReadAllLines(Path.Combine(ctx.Dir, "log-20240722-0.log")));
+        Assert.Equal(["[2024-07-22T08:00:00.0000000][Information][rmannibucau.Delete.2] this too"], File.ReadAllLines(Path.Combine(ctx.Dir, "log-20240722-0.log")));
     }
 
     private class LogTestContext : IDisposable
