@@ -163,6 +163,7 @@ internal class MessageQueue : IDisposable
                     CompressionMode.Compress
                 );
             sourceFileStream.CopyTo(compressionStream);
+            sourceFileStream.Close();
             File.Delete(_lastPath);
         }
         if (_options.MaxDays > 0)
